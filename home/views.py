@@ -28,5 +28,7 @@ def post(request):
             newPost.save()
             messages.success(request, "Your Post has been created successfully")
 
+    else:
+        messages.error(request, "Error while submitting!!!")
 
     return render(request, 'home/post.html')

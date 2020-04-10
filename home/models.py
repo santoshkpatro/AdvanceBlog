@@ -5,7 +5,7 @@ class Post(models.Model):
     topic = models.CharField(max_length=200)
     description = models.TextField()
     author = models.CharField(max_length=50)
-    date_created = models.DateTimeField(auto_now_add=True)
+    date_created = models.DateTimeField('date published')
 
     def __str__(self):
         return self.topic

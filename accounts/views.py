@@ -1,9 +1,21 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-def login(request):
+def userlogin(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            messages.success(request, "Login Successfull!!")
+            return redirect('dashboard')
+        else:
+            messages.success(request, "Invalid Credentials!!")
     return render(request, 'accounts/login.html')
 
 
@@ -24,3 +36,14 @@ def signup(request):
                 messages.success(request, "Account created successfully!!!")
 
     return render(request, 'accounts/signup.html')
+
+
+def userlogout(request):
+    logout(request)
+    messages.success(request, "Logged Out successfully!!")
+    return render(request, 'accounts/login.html')
+
+
+@login_required(login_url='userlogin')
+def dashboard(request):
+    return render(request, 'accounts/dashboard.html')

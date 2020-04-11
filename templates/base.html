@@ -16,14 +16,23 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
             <a class="nav-item nav-link active" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link active" href="{% url 'dashboard' %}">Dashboard</a>
             <a class="nav-item nav-link active" href="#">About Us</a>
             <a class="nav-item nav-link active" href="#">Contact Us</a>
+            
           </div>
         </div>
+        {% if user.is_authenticated %}
         <div class="navbar-nav justify-content-end">
-          <a href="{% url 'login' %}"><button type="button" class="btn btn-outline-success mr-2">Login</button></a>
+          <a class="nav-item nav-link active mr-2" href="#">Hey, {{ user.first_name }}</a>
+          <a href="{% url 'userlogout' %}"><button type="button" class="btn btn-outline-warning">Logout</button></a>
+        </div>
+        {% else %}
+        <div class="navbar-nav justify-content-end">
+          <a href="{% url 'userlogin' %}"><button type="button" class="btn btn-outline-success mr-2">Login</button></a>
           <a href="{% url 'signup' %}"><button type="button" class="btn btn-outline-primary">Sign Up</button></a> 
         </div>
+        {% endif %}
     </nav>
 
 

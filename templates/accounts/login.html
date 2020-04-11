@@ -8,6 +8,7 @@
     <div class="card">
         <div class="container mt-4 mb-4">
             <form>
+                {% csrf_token %}
                 <div class="form-group">
                   <label for="exampleInputEmail1">Email address</label>
                   <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
@@ -18,7 +19,7 @@
                   <input type="password" class="form-control" id="exampleInputPassword1">
                 </div>
                 <button type="submit" class="btn btn-primary">Login</button>
-                <p class="mt-4">Don't have an account <a href="">Click Here</a><p>
+                <p class="mt-4">Don't have an account!! <a href="{% url 'signup' %}">Click Here</a><p>
               </form>
         </div>
     </div>

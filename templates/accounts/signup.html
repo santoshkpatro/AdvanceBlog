@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+
+<div class="container mt-2" style="width: 30rem;">
+    <h1 class="display-lg text-center" mb-3>SIGN UP!!!</h1>
+    <div class="card">
+        <div class="container mt-2 mb-2">
+            <form method="POST" action="#">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="exampleInputusername">Username</label>
+                    <input class="form-control" type="text" name="username">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputFirstName">First Name</label>
+                    <input class="form-control" type="text" name="firstname">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputLastName">Last Name</label>
+                    <input class="form-control" type="text" name="lastname">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputemail">Email</label>
+                    <input class="form-control" type="email" name="email">
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputpassword">Password</label>
+                    <input class="form-control" type="password" name="Password1">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputpassword">Confirm Password</label>
+                    <input class="form-control" type="password" name="Password2">
+                </div>
+                <button type="submit" class="btn btn-primary">Signup</button>
+                <p class="mt-4">Already have an account!! <a href="{% url 'login' %}">Click Here</a> to login<p>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}

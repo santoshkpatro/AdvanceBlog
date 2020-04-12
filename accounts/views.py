@@ -13,7 +13,7 @@ def userlogin(request):
         if user is not None:
             login(request, user)
             messages.success(request, "Login Successfull!!")
-            return redirect('dashboard')
+            return redirect('home')
         else:
             messages.success(request, "Invalid Credentials!!")
     return render(request, 'accounts/login.html')

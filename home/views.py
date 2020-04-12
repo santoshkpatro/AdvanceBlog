@@ -2,6 +2,8 @@ from django.shortcuts import render, HttpResponse, redirect
 from .models import Post
 from django.utils import timezone
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 # Create your views here.
 def home(request):
@@ -10,25 +12,26 @@ def home(request):
     return render(request, 'home/home.html', context)
 
 
-def dashboard(request):
-    return HttpResponse('You are visiting the dashboard')
+@login_required(login_url='userlogin')
+def dashboard(request, user_id):
+    user = User.objects.get(id=user_id)
+    allpost = user.post_set.all()
+    context = {'allpost': allpost}
+    return render(request, 'home/dashboard.html', context)
 
 
-def post(request):
+@login_required(login_url='userlogin')
+def post(request, user_id):
     if request.method == 'POST':
-
+        user = User.objects.get(id=user_id)
         topic = request.POST['topic']
         description = request.POST['description']
-        author = request.POST['author']
 
-        if topic == '' or description == '' or author == '':
+        if topic == '' or description == '':
             messages.warning(request, "Please enter valid information")
         else:
-            newPost = Post(topic=topic, description=description, author=author, date_created=timezone.now())
+            newPost = Post(user=user, topic=topic, description=description, date_created=timezone.now())
             newPost.save()
             messages.success(request, "Your Post has been created successfully")
-
-    else:
-        messages.error(request, "Error while submitting!!!")
 
     return render(request, 'home/post.html')

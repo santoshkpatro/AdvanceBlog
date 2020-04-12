@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="container mt-3">
+{% for posts in allpost %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-5">{{ posts.topic }}</h1>
+      <p class="lead">{{ posts.description }}</p>
+      <br>
+      <br>
+      <form action="" class="inline">
+          <button class="btn btn-primary">View</button>
+          <button class="btn btn-danger">Delete</button>
+      </form>
+    </div>
+  </div>
+{% endfor %}
+</div>
+
+{% endblock body %}
